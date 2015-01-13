@@ -124,6 +124,28 @@ def main
     end
   end
 
+  puts "*** Launching PDF preview"
+  system('open', '-a', 'Preview', outfile)
+  puts
+
+  puts "Does everything look okay to start printing? Type 'yes' to continue."
+  answer = gets.chomp.downcase
+  if answer != 'yes'
+    return -1
+  end
+
+  cmd_args = ['lpr']
+  if queue
+    cmd_args += ['-P', queue]
+  end
+
+  pdf = open(outfile, 'r')
+  IO.popen(cmd_args, 'w+') do |lpr|
+    lpr.write pdf.read
+    lpr.close_write
+  end
+  pdf.close
+
   return 0
 end
 
