@@ -111,8 +111,13 @@ def main
 
   Prawn::Document.generate(outfile, page_size: [in2pt(5.5)] * 2, options: { optimize_objects: false }) do
     font './Futura_0.ttf'
-    bounding_box [18, 180], width: 288, height: 288 do
-      text addresses.addresses.first.to_s, size: 12, align: :center
+
+    addresses.addresses.each do |address|
+      bounding_box [0, 162], width: 324, height: 288 do
+        text address.to_s, size: 12, align: :center
+      end
+
+      start_new_page
     end
   end
 
