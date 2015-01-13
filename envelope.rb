@@ -66,13 +66,15 @@ CSV: The file to read addresses from
 end
 
 def main
+  outfile = nil
+  queue = nil
+
   opts = GetoptLong.new(
     [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
     [ '--out', '-o', GetoptLong::REQUIRED_ARGUMENT ],
     [ '--printer', '-p', GetoptLong::REQUIRED_ARGUMENT ],
   )
 
-  outfile = nil
   opts.each do |opt, arg|
     case opt
       when '--help'
