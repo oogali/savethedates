@@ -49,9 +49,8 @@ class Address
 
     <<-EOF
 #{name}
-#{addresses[0]}
-#{city}, #{state} #{postal_code}
-#{country == 'US' ? '' : country}
+#{addresses[0]}#{addresses[1] ? (', ' + addresses[1]) : ''}
+#{city}#{state ? (', ' + state) : ''} #{postal_code} #{country == 'US' ? '' : country}
     EOF
   end
 end
