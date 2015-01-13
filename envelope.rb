@@ -29,14 +29,18 @@ class Address
   end
 
   def to_s
-    if names[1].length == 2
-      if names[0][1] == names[1][1]
-        name = "#{names[0][0]} and #{names[1][0]} #{names[1][1]}"
+    if names[1].length == 3 or (names[1][0] != '???' and names[1][1] == '???')
+      if names[0][2] == names[1][2] or (names[0][0] == 'Mr.' and names[1][0] == 'Mrs.')
+        if names[1][1] == '???'
+          name = "#{names[0][0]} and #{names[1][0]} #{names[0][1]} #{names[0][2]}"
+        else
+          name = "#{names[0].join(' ')} and #{names[1].join(' ')}"
+        end
       else
-        name = "#{names[0].join(' ')} and #{names[1].join(' ')}"
+        name = "#{names[0].join(' ')}\n#{names[1].join(' ')}"
       end
     else
-      if names[1].length == 1 and names[1][0] == '???'
+      if names[1].length == 2 and names[1][1] == '???'
         name = "#{names[0].join(' ')} and Guest"
       else
         name = "#{names[0].join(' ')}"
@@ -97,7 +101,7 @@ def main
   csv_file = ARGV.shift
   CSV.foreach(csv_file, headers: true) do |row|
     address = Address.new
-    address.names = [row['Primary'].split(' ', 2), (row['+1'] ? row['+1'] : '').split(' ', 2)]
+    address.names = [row['Primary Salutation']] + row['Primary'].split(' ', 2), [row['+1 Salutation']] + (row['+1'] ? row['+1'] : '').split(' ', 2)
     address.addresses = [row['Address 1'], row['Address 2']]
     address.city = row['City']
     address.state = row['State']
