@@ -57,6 +57,7 @@ def usage
 
 -h, --help:         Show usage
 -o, --out:          Output file for PDF
+-p, --printer:      Printer queue to use (lpr)
 
 CSV: The file to read addresses from
   EOF
@@ -67,7 +68,8 @@ end
 def main
   opts = GetoptLong.new(
     [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
-    [ '--out', '-o', GetoptLong::REQUIRED_ARGUMENT ]
+    [ '--out', '-o', GetoptLong::REQUIRED_ARGUMENT ],
+    [ '--printer', '-p', GetoptLong::REQUIRED_ARGUMENT ],
   )
 
   outfile = nil
@@ -78,6 +80,9 @@ def main
 
       when '--out'
         outfile = arg
+
+      when '--printer'
+        queue = arg
     end
   end
 
