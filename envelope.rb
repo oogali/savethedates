@@ -31,11 +31,7 @@ class Address
   def to_s
     if names[1].length == 3 or (names[1][0] != '???' and names[1][1] == '???')
       if names[0][2] == names[1][2] or (names[0][0] == 'Mr.' and names[1][0] == 'Mrs.')
-        if names[1][1] == '???'
-          name = "#{names[0][0]} and #{names[1][0]} #{names[0][1]} #{names[0][2]}"
-        else
-          name = "#{names[0].join(' ')} and #{names[1].join(' ')}"
-        end
+        name = "#{names[0][0]} and #{names[1][0]} #{names[0][1]} #{names[0][2]}"
       else
         name = "#{names[0].join(' ')}\n#{names[1].join(' ')}"
       end
